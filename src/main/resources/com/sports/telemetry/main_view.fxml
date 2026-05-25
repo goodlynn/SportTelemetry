@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane prefHeight="730.0" prefWidth="1150.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sports.telemetry.TelemetryController">
+    <tabs>
+        <Tab text=" Мониторинг в реальном времени">
+            <BorderPane>
+                <top>
+                    <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 12; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;">
+                        <children>
+                            <Label text="Спортсмен (ФИО):" style="-fx-font-weight: bold;" />
+                            <TextField fx:id="nameField" promptText="Иванов И.И." prefWidth="180.0"/>
+                            <Button fx:id="startBtn" onAction="#onStartButtonClick" text="▶ Старт" style="-fx-background-color: #38a169; -fx-text-fill: white; -fx-font-weight: bold;" />
+                            <Button fx:id="stopBtn" onAction="#onStopButtonClick" text="⏹ Завершить и сохранить" style="-fx-background-color: #e53e3e; -fx-text-fill: white; -fx-font-weight: bold;" />
+                            <Separator orientation="VERTICAL" prefHeight="20.0" />
+                            <Label fx:id="statusLabel" text="Статус: Система готова" style="-fx-text-fill: #718096;" />
+                        </children>
+                    </HBox>
+                </top>
+
+                <center>
+                    <LineChart fx:id="hrChart" animated="false" title="ЭКГ/Телеметрия частоты сердечных сокращений" BorderPane.alignment="CENTER">
+                        <xAxis><NumberAxis label="Время тренировки (сек)" /></xAxis>
+                        <yAxis><NumberAxis label="Пульс (BPM)" lowerBound="50" upperBound="200" autoRanging="false" /></yAxis>
+                    </LineChart>
+                </center>
+
+                <right>
+                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefWidth="350.0" style="-fx-background-color: transparent; -fx-background: #f7fafc; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 0 1;">
+                        <content>
+                            <VBox spacing="10.0" style="-fx-padding: 12; -fx-background-color: #f7fafc;">
+
+                                <VBox style="-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 4, 0, 0, 1);">
+                                    <Label text="ТЕКУЩИЙ ПОКАЗАТЕЛЬ:" style="-fx-text-fill: #718096; -fx-font-size: 11px;" />
+                                    <Label fx:id="hrLabel" text="-- BPM" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #e53e3e;" />
+                                    <Label fx:id="zoneLabel" text="Зона: Ожидание" style="-fx-text-fill: #2b6cb0; -fx-font-weight: bold; -fx-font-size: 13px;" />
+                                </VBox>
+
+                                <VBox spacing="8" style="-fx-background-color: white; -fx-padding: 10; -fx-background-radius: 6; -fx-border-color: #edf2f7; -fx-border-width: 1;">
+                                    <Label text="📋 Справочник терапевтических зон:" style="-fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: #2d3748;"/>
+                                    <Separator />
+
+                                    <HBox spacing="8" alignment="TOP_LEFT">
+                                        <Label text="●" style="-fx-text-fill: #a0aec0; -fx-font-size: 14px;"/>
+                                        <VBox HBox.hgrow="ALWAYS">
+                                            <Label text="Зона покоя (до 70 BPM)" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #4a5568;"/>
+                                            <Label text="Организм отдыхает. Происходит базовое восстановление тканей." wrapText="true" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                                        </VBox>
+                                    </HBox>
+
+                                    <HBox spacing="8" alignment="TOP_LEFT">
+                                        <Label text="●" style="-fx-text-fill: #3182ce; -fx-font-size: 14px;"/>
+                                        <VBox HBox.hgrow="ALWAYS">
+                                            <Label text="Жиросжигающая зона (70 - 120 BPM)" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #3182ce;"/>
+                                            <Label text="Низкая интенсивность. Расщепление жировых клеток." wrapText="true" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                                        </VBox>
+                                    </HBox>
+
+                                    <HBox spacing="8" alignment="TOP_LEFT">
+                                        <Label text="●" style="-fx-text-fill: #38a169; -fx-font-size: 14px;"/>
+                                        <VBox HBox.hgrow="ALWAYS">
+                                            <Label text="Аэробная зона (120 - 150 BPM)" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #38a169;"/>
+                                            <Label text="Развивает общую выносливость, укрепляет сердце и сосуды." wrapText="true" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                                        </VBox>
+                                    </HBox>
+
+                                    <HBox spacing="8" alignment="TOP_LEFT">
+                                        <Label text="●" style="-fx-text-fill: #dd6b20; -fx-font-size: 14px;"/>
+                                        <VBox HBox.hgrow="ALWAYS">
+                                            <Label text="Анаэробная зона (150 - 170 BPM)" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #dd6b20;"/>
+                                            <Label text="Силовая выносливость. Мышцы работают без кислорода." wrapText="true" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                                        </VBox>
+                                    </HBox>
+
+                                    <HBox spacing="8" alignment="TOP_LEFT">
+                                        <Label text="●" style="-fx-text-fill: #e53e3e; -fx-font-size: 14px;"/>
+                                        <VBox HBox.hgrow="ALWAYS">
+                                            <Label text="Максимальная нагрузка (более 170 BPM)" style="-fx-font-weight: bold; -fx-font-size: 11px; -fx-text-fill: #e53e3e;"/>
+                                            <Label text="Критический предел. Допустим только для коротких спринтов." wrapText="true" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
+
+                                <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 8; -fx-background-radius: 6; -fx-border-color: #edf2f7; -fx-border-width: 1;">
+                                    <Label text="📈 Физиологическая нагрузка" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                                    <ProgressBar fx:id="loadBar" maxWidth="1.7976931348623157E308" progress="0.0" style="-fx-accent: #ed8936;" />
+                                </VBox>
+
+                                <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 8; -fx-background-radius: 6; -fx-border-color: #edf2f7; -fx-border-width: 1;">
+                                    <Label text="🔋 Резерв восстановления" style="-fx-font-weight: bold; -fx-font-size: 11px;"/>
+                                    <ProgressBar fx:id="recoveryBar" maxWidth="1.7976931348623157E308" progress="1.0" style="-fx-accent: #48bb78;" />
+                                </VBox>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </right>
+            </BorderPane>
+        </Tab>
+
+        <Tab text=" Архив и Воспроизведение Результатов">
+            <SplitPane dividerPositions="0.55">
+                <VBox spacing="10" style="-fx-padding: 15;">
+                    <Label text="Журнал телеметрических сессий" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #edf2f7; -fx-padding: 8; -fx-background-radius: 4;">
+                        <Label text="🔍 Быстрый поиск (ФИО):" style="-fx-font-weight: bold; -fx-font-size: 12px;" />
+                        <TextField fx:id="searchField" promptText="Введите фамилию для фильтрации..." HBox.hgrow="ALWAYS" />
+                    </HBox>
+                    <TableView fx:id="historyTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colName" text="Спортсмен" prefWidth="160" />
+                            <TableColumn fx:id="colDuration" text="Время" prefWidth="80" />
+                            <TableColumn fx:id="colAvgHr" text="Ср. ЧСС" prefWidth="80" />
+                            <TableColumn fx:id="colMaxHr" text="Макс ЧСС" prefWidth="80" />
+                            <TableColumn fx:id="colZone" text="Итоговая зона" prefWidth="130" />
+                        </columns>
+                    </TableView>
+
+                </VBox>
+
+                <VBox style="-fx-padding: 10; -fx-background-color: white;">
+                    <LineChart fx:id="historyChart" animated="false" title="График выбранной сессии (Архив)" VBox.vgrow="ALWAYS">
+                        <xAxis><NumberAxis label="Секунды" /></xAxis>
+                        <yAxis><NumberAxis label="BPM" lowerBound="50" upperBound="200" autoRanging="false" /></yAxis>
+                    </LineChart>
+                </VBox>
+            </SplitPane>
+        </Tab>
+    </tabs>
+</TabPane>

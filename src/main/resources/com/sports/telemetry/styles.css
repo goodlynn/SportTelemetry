@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #f4f6f9;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.top-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.button {
+    -fx-background-color: #3182ce;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15 8 15;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2b6cb0;
+}
+
+.button:disabled {
+    -fx-background-color: #cbd5e0;
+    -fx-text-fill: #718096;
+}
+
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 0 1;
+}
+
+.card-pulse {
+    -fx-background-color: #fff5f5;
+    -fx-border-color: #feb2b2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 15;
+}
+
+.pulse-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #e53e3e;
+}
+
+/* Стилизация шкал */
+.progress-load .bar {
+    -fx-background-color: #dd6b20; /* Оранжево-красный для нагрузки */
+}
+
+.progress-recovery .bar {
+    -fx-background-color: #38a169; /* Зеленый для восстановления */
+}
+
+.chart-series-line {
+    -fx-stroke: #e53e3e; /* Линия пульса цвета крови/медицинская */
+    -fx-stroke-width: 2.5px;
+}
